@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+    <title>麦麦推广-购买会员</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<style>
+    .container {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .pay-container {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .qrcode {
+        width: 325px;
+        height: 406px;
+    }
+    .tip {
+        color: red;
+        margin-top: 50px;
+        font-size: 12px;
+    }
+</style>
+ 
+<body>
+    <div id="guide" class="container" :style="guideStyle">
+        <p v-if="!inWeixin" class="jump">支付跳转中...</p>
+        <div v-if="inWeixin" class="pay-container">
+            <h2>长按识别二维码购买会员</h2>
+            <img :src="qrcodeURL" class="qrcode" />
+            <div class="tip">提示：请务必在支付备注里添写手机号码</div>
+            <div class="tip" style="margin-top:2px;">如有支付疑问请及时联系「麦麦」客服</div>
+        </div>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        el: '#guide',
+        data: {
+            inWeixin: inAppBrowser(),
+            guideStyle: {}
+        },
+        created() {
+            const type = getQueryString('type')
+            const price = getQueryString('price')
+        
+            this.qrcodeURL = './images/'+type+'_'+price+'.png'
+
+            if (!this.inWeixin) {
+                window.location.href = type+'://'
+            }
+        },
+        mounted() {
+            var wh = document.documentElement.clientHeight
+            this.guideStyle = {height: wh+'px'}
+        },
+    })
+    function inAppBrowser () { 
+        const browser = window.navigator.userAgent.toLowerCase();
+	
+        if (browser.match(/Alipay/i)=="alipay" || browser.match(/MicroMessenger/i)=="micromessenger") {
+            return true
+        }
+
+        return false
+    }
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+</script>
+
+</html>
