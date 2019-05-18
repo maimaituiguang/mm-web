@@ -7,48 +7,52 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <title>麦麦推广 APP 下载</title>
     <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-        .jump {
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-end;
-            background-color: #0e0e0e;  
-        }
-        .down {
-            display: flex;
-            align-items: flex-start;
-        }
+        body { padding: 0; margin: 0;}
+        .jump {display: flex; align-items: center; flex-direction: column; justify-content: center;}
+        .down-button { margin-top: 100px; width: 100px; height: 35px; background-color:#2E7DCE; border-radius: 5px; color:#fff;}
+        .guide {background-color: rgba(0,0,0,0.9); position: absolute; left:0; top: 0;}
     </style>
 </head>
 
 <body>
-    <div id="guide">
-        <div class="down" v-if="inWeixin==false">
-            <h2 style="width: 100px;">敬请期待...</h2>
+    <div id="download">
+        <div class="jump" :style="{height: guideHeight + 'px'}">
+            <h3 style="padding-bottom: 100px; color: #AF9B71;">
+                大礼馈赠新用户, 注册即送 
+                <span style="font-weight: bold; color:crimson; font-size: 1.5em;">19</span> 
+                元
+            </h3>
+            <img src="./images/mmtg-icon.png" style="width:100px; height:100px;">
+            <span style="margin-top:20px; font-size:13px;">麦麦推广（1.0.0-release）</span>
+            <button type="button" class="down-button" @click="downClicked">立即下载</button>
         </div>
-        <div class="jump" v-if="inWeixin" :style="guideStyle">
-            <img style="width: 415px; height:124px;" src="http://scand75.gz01.bdysite.com/ll/?i=20190127135202631.png?,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDYyNDk5Nw==,size_16,color_FFFFFF,t_70"></img>
+        <div :style="{height:guideHeight+'px', visibility: visibility}" class="guide">
+            <img src="./images/guide.jpg" style="width: 100%">
         </div>
     </div>
 </body>
     
 <script>
 new Vue({
-    el: '#guide',
+    el: '#download',
     data: {
         inWeixin: isWeixin(),
-        guideStyle: {}
-    },
-    created() {
-        
+        guideHeight: 1500,
+        visibility: 'hidden'
     },
     mounted() {
-        var wh = document.documentElement.clientHeight
-        this.guideStyle = {height: wh + 'px'}
+        this.guideHeight = document.documentElement.clientHeight
     },
+    methods: {
+        downClicked () {
+            if (!this.inWeixin) {
+                window.open('http://167.179.116.178/static/mmtg.apk')
+                return
+            }
+
+            this.visibility = 'visible'
+        }
+    }
 })
 
 function isWeixin () { 
