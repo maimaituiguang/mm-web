@@ -9,7 +9,11 @@
     <style>
         body { padding: 0; margin: 0;}
         .jump {display: flex; align-items: center; flex-direction: column;}
-        .down-button { margin-top: 80px; width: 150px; font-size:14px; height: 40px; background-color:#2E7DCE; border-radius: 5px; color:#fff; font-weight: bold;border:#2E7DCE;}
+        .down-button { 
+            margin-top: 80px; font-size:14px;
+            background-color:#2E7DCE; border-radius: 5px; 
+            color:#fff; font-weight: bold;border:#2E7DCE;
+            text-decoration: none; text-align: center; padding: 10px;}
         .guide {background-color: rgba(0,0,0,0.9); position: absolute; left:0; top: 0;}
     </style>
 </head>
@@ -24,7 +28,9 @@
             </h3>
             <img src="./images/mmtg-icon.png" style="width:100px; height:100px;">
             <span style="margin-top:20px; font-size:15px;">麦麦推广（1.0.0-release）</span>
-            <button type="button" class="down-button" @click="downClicked">立即下载（送19元）</button>
+            <button v-if="inWeixin == true" type="button" class="down-button" @click="downClicked">立即下载（送19元）</button>
+            <a v-if="inWeixin == false" class="down-button" type="button" href="http://167.179.116.178/static/app-yingyongbao-release.apk">立即下载（送19元）</a>
+
         </div>
         <div :style="{height:guideHeight+'px', visibility: visibility}" class="guide">
             <img src="./images/guide.jpg" style="width: 100%">
@@ -45,12 +51,9 @@ new Vue({
     },
     methods: {
         downClicked () {
-            if (!this.inWeixin) {
-                window.open('http://167.179.116.178/static/mmtg.apk')
-                return
+            if (this.inWeixin) {
+                this.visibility = 'visible'
             }
-
-            this.visibility = 'visible'
         }
     }
 })
