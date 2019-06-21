@@ -30,7 +30,7 @@
             <span style="margin-top:20px; font-size:15px;">麦麦推广（2.3.6-release）</span>
             <button v-if="inWeixin == true" :type="{visibility: inWeixin?'visible':'hidden'}" type="button" class="down-button" @click="downClicked">立即下载（送19元）</button>
             <a v-if="!inWeixin && !inIPhone" class="down-button" type="button" href="http://167.179.116.178/static/app-yingyongbao-release.apk">立即下载（送19元）</a>
-            <a v-if="!inWeixin && inIPhone" class="down-button" type="button" href="itms-services://?action=download-manifest&url=https://note.youdao.com/yws/api/personal/file/WEBcae462e87ed0bd8665ee3def41d10aa0?method=download&shareKey=bfc76204b57b4db4ba453fe49a8187d3">立即下载（送19元）</a>
+            <a v-if="!inWeixin && inIPhone" class="down-button" type="button" href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/maimaituiguang/mm-web/master/manifest.plist">立即下载（送19元）</a>
         </div>
         <div :style="{height:guideHeight+'px', visibility: visibility}" class="guide">
             <img src="./images/guide.jpg" style="width: 100%">
