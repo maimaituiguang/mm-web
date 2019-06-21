@@ -29,8 +29,8 @@
             <img src="./images/mmtg-icon.png" style="width:100px; height:100px;">
             <span style="margin-top:20px; font-size:15px;">麦麦推广（2.3.6-release）</span>
             <button v-if="inWeixin == true" :type="{visibility: inWeixin?'visible':'hidden'}" type="button" class="down-button" @click="downClicked">立即下载（送19元）</button>
-            <a v-if="!inWeixin && isAndroid" class="down-button" type="button" href="http://167.179.116.178/static/app-yingyongbao-release.apk">立即下载（送19元）</a>
-            <a v-if="!inWeixin && !isAndroid" class="down-button" type="button" href="itms-services://?action=download-manifest&url=https://maimaituiguang.github.io/mm-web/manifest.plist">立即下载（送19元）</a>
+            <a v-if="!inWeixin && !isIPhone" class="down-button" type="button" href="http://167.179.116.178/static/app-yingyongbao-release.apk">立即下载（送19元）</a>
+            <a v-if="!inWeixin && isIPhone" class="down-button" type="button" href="itms-services://?action=download-manifest&url=https://maimaituiguang.github.io/mm-web/manifest.plist">立即下载（送19元）</a>
         </div>
         <div :style="{height:guideHeight+'px', visibility: visibility}" class="guide">
             <img src="./images/guide.jpg" style="width: 100%">
@@ -43,7 +43,7 @@ new Vue({
     el: '#download',
     data: {
         inWeixin: isWeixin(),
-        isAndroid: isAndroid(),
+        isIPhone: isIPhone(),
         guideHeight: 1500,
         visibility: 'hidden'
     },
@@ -69,10 +69,11 @@ function isWeixin () {
 
 function isAndroid() {
     const ua = navigator.userAgent.toLowerCase()
+    console.log(ua)
     if (ua.match(/apple/i) == 'apple') { 
-        return false
+        return true
     }
-    return true
+    return false
 }
 
 </script>
