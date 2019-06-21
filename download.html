@@ -69,7 +69,10 @@ function isWeixin () {
 
 function isAndroid() {
     const ua = navigator.userAgent.toLowerCase()
-    console.log(ua)
+    if (ua.match(/apple/i) == 'apple') { 
+        return false
+    }
+    return true
 }
 
 </script>
